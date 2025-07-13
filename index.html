@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>GitHub Events</title>
+  <style>
+    body { font-family: Arial; padding: 20px; }
+    .event { padding: 10px; border-bottom: 1px solid #ddd; }
+  </style>
+</head>
+<body>
+  <h2>Recent GitHub Events</h2>
+  <div id="events"></div>
+  <script>
+    function formatEvent(event) {
+      const date = new Date(event.timestamp);
+      const options = { year: 'numeric', month: 'long', day: 'numeric', hour: 'numeric', minute: '2-digit', timeZone: 'UTC', hour12: true };
+      const formattedTime = date.toLocaleString('en-US', options) + ' UTC';
+
+      if (event.type === 'push') return `${event.author} pushed to ${event.to_branch} on ${formattedTime}`;
+      else if (event.type === 'pull_request') return `${event.author} submitted a pull request from ${event.from_branch} to ${event.to_branch} on ${formattedTime}`;
+      else if (event.type === 'merge') return `${event.author} merged branch ${event.from_branch} to ${event.to_branch} on ${formattedTime}`;
+    }
+    async function loadEvents() {
+      const res = await fetch('/events');
+      const events = await res.json();
+      document.getElementById('events').innerHTML = events.map(e => `<div class="event">${formatEvent(e)}</div>`).join('');
+    }
+    loadEvents();
+    setInterval(loadEvents, 15000);
+  </script>
+</body>
+</html>
