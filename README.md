@@ -14,12 +14,13 @@ This project demonstrates GitHub webhook handling using:
 - HTML + JavaScript (Jinja2 + polling)
 
 ## 📁 Folder Structure
-webhook-repo/
-├── templates/
-│ └── index.html
-├── .env
-├── app.py
-├── requirements.txt
+
+webhook-repo/ <br>
+├── templates/ <br>
+│ └── index.html <br>
+├── .env <br>
+├── app.py <br>
+├── requirements.txt <br>
 
 ## 🚀 Setup Instructions
 
